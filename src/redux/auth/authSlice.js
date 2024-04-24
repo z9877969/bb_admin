@@ -9,8 +9,14 @@ const authSlice = createSlice({
     toggleAuth(state, { payload = null }) {
       state.token = payload;
     },
+    login(state) {
+      state.token = 'token';
+    },
+    logout(state) {
+      state.token = null;
+    },
   },
 });
 
-export const { toggleAuth } = authSlice.actions;
+export const { toggleAuth, login, logout } = authSlice.actions;
 export default authSlice.reducer;

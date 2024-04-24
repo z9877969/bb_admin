@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { AppBar, Toolbar, Typography, Grid, ToggleButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, Grid, Button } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
 import { selectIsAuth } from '@redux/auth/authSelectors';
-import { toggleAuth } from '@redux/auth/authSlice';
+import { logout } from '@redux/auth/authSlice';
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -23,10 +23,16 @@ const Layout = ({ children }) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             BrushBuddy Admin
           </Typography>
-          <ToggleButton
-            value={true}
-            onChange={() => dispatch(toggleAuth(!isAuth))}
-          />
+          <Button
+            onClick={() => dispatch(logout())}
+            variant="outlined"
+            sx={{
+              color: '#ffffff',
+              border: '1px solid #ffffff',
+            }}
+          >
+            Logogut
+          </Button>
         </Toolbar>
       </AppBar>
       {isAuth ? (

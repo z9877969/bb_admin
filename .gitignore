@@ -31,3 +31,5 @@ _productsList/
 
 # Local Netlify folder
 .netlify
+
+.env
