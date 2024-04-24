@@ -23,16 +23,18 @@ const Layout = ({ children }) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             BrushBuddy Admin
           </Typography>
-          <Button
-            onClick={() => dispatch(logout())}
-            variant="outlined"
-            sx={{
-              color: '#ffffff',
-              border: '1px solid #ffffff',
-            }}
-          >
-            Logogut
-          </Button>
+          {isAuth && (
+            <Button
+              onClick={() => dispatch(logout())}
+              variant="outlined"
+              sx={{
+                color: '#ffffff',
+                border: '1px solid #ffffff',
+              }}
+            >
+              Logogut
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       {isAuth ? (
