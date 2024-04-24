@@ -20,6 +20,7 @@ import {
   updateProduct,
 } from '@redux/products/productsOperations';
 import { useNavigate, useParams } from 'react-router-dom';
+import ImagesList from './ImagesList';
 
 const userTypeDict = {
   child: 'Для дітей',
@@ -122,38 +123,44 @@ const ProductForm = ({ product }) => {
         value={values.recomendation}
         onChange={handleChange}
       />
-      <FormGroup>
-        {Object.keys(userTypeDict).map((type) => (
-          <FormControlLabel
-            key={type}
-            control={
-              <Checkbox
-                name="userType"
-                value={type}
-                onChange={handleChange}
-                checked={values.userType.includes(type)}
-              />
-            }
-            label={userTypeDict[type]}
-          />
-        ))}
-      </FormGroup>
-      <FormGroup>
-        {Object.keys(ageDict).map((type) => (
-          <FormControlLabel
-            key={type}
-            control={
-              <Checkbox
-                name="age"
-                value={type}
-                onChange={handleChange}
-                checked={values.age.includes(type)}
-              />
-            }
-            label={ageDict[type]}
-          />
-        ))}
-      </FormGroup>
+      <Box>
+        <InputLabel id="category">Тип користувача</InputLabel>
+        <FormGroup>
+          {Object.keys(userTypeDict).map((type) => (
+            <FormControlLabel
+              key={type}
+              control={
+                <Checkbox
+                  name="userType"
+                  value={type}
+                  onChange={handleChange}
+                  checked={values.userType.includes(type)}
+                />
+              }
+              label={userTypeDict[type]}
+            />
+          ))}
+        </FormGroup>
+      </Box>
+      <Box>
+        <FormGroup>
+          <InputLabel id="category">Вікові обмеження</InputLabel>
+          {Object.keys(ageDict).map((type) => (
+            <FormControlLabel
+              key={type}
+              control={
+                <Checkbox
+                  name="age"
+                  value={type}
+                  onChange={handleChange}
+                  checked={values.age.includes(type)}
+                />
+              }
+              label={ageDict[type]}
+            />
+          ))}
+        </FormGroup>
+      </Box>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Maker</InputLabel>
         <Select
@@ -171,7 +178,7 @@ const ProductForm = ({ product }) => {
         </Select>
       </FormControl>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Category</InputLabel>
+        <InputLabel id="category">Category</InputLabel>
         <Select
           labelId="category"
           id="category"
@@ -186,6 +193,11 @@ const ProductForm = ({ product }) => {
           ))}
         </Select>
       </FormControl>
+      <ImagesList
+        images={values.images}
+        setImages={(images) => setFieldValue('images', images)}
+      />
+
       <FormButtons
         disabledSave={!canSave}
         disabledCancel={prodId !== 'new' && !canSave}

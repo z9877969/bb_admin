@@ -18,7 +18,9 @@ const ProductsListPage = () => {
       <List>
         {prodList.map((el) => (
           <ListItem key={el._id}>
-            <Link to={'/products/' + el._id}>{el.title}</Link>
+            <Link to={'/products/' + el._id} style={{ color: 'inherit' }}>
+              {el.title}
+            </Link>
           </ListItem>
         ))}
       </List>
