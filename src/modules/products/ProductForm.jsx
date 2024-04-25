@@ -21,6 +21,7 @@ import {
 } from '@redux/products/productsOperations';
 import { useNavigate, useParams } from 'react-router-dom';
 import ImagesList from './ImagesList';
+import Description from './Description';
 
 const userTypeDict = {
   child: 'Для дітей',
@@ -48,7 +49,9 @@ const ProductForm = ({ product }) => {
         ? dispatch(addProduct(values)).then(({ payload }) => {
             navigate(`/products/${payload._id}`);
           })
-        : dispatch(updateProduct({ id: _id, product: values }));
+        : dispatch(updateProduct({ id: _id, product: values })).then(() => {
+            setCanSave(false);
+          });
     },
   });
 
@@ -65,6 +68,13 @@ const ProductForm = ({ product }) => {
       navigate('/products');
     });
   };
+
+  const setDescr = useCallback(
+    (descr) => {
+      setFieldValue('description', descr);
+    },
+    [setFieldValue]
+  );
 
   useEffect(() => {
     product && setValues(product);
@@ -197,6 +207,7 @@ const ProductForm = ({ product }) => {
         images={values.images}
         setImages={(images) => setFieldValue('images', images)}
       />
+      <Description description={values.description} setDescription={setDescr} />
 
       <FormButtons
         disabledSave={!canSave}

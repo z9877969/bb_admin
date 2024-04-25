@@ -104,15 +104,15 @@ const VariantForm = ({ variant, deleteCurVariant, deleteNewVariant }) => {
         value={values.flavor ?? ''}
         onChange={handleChange}
       />
-      {/* <TextField
-        id="marker"
-        label="Оберіть колір маркеру"
+      <TextField
+        id="volume"
+        label="Вкажіть об'єм"
         variant="outlined"
         fullWidth
-        name="marker"
-        value={values.marker ?? ''}
+        name="volume"
+        value={values.volume ?? ''}
         onChange={handleChange}
-      /> */}
+      />
       <MuiColorInput
         format="hex"
         name="marker"
@@ -149,15 +149,6 @@ const VariantForm = ({ variant, deleteCurVariant, deleteNewVariant }) => {
         value={Number(values.salePrice)}
         onChange={handleChange}
       />
-      <TextField
-        id="volume"
-        label="Вкажіть об'єм"
-        variant="outlined"
-        fullWidth
-        name="volume"
-        value={values.volume ?? ''}
-        onChange={handleChange}
-      />
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" sx={{ minWidth: '50px' }}>
           Watermark
@@ -167,7 +158,7 @@ const VariantForm = ({ variant, deleteCurVariant, deleteNewVariant }) => {
           id="watermark"
           value={values.watermark ?? ''}
           label="Watermark"
-          onChange={handleChange}
+          onChange={(e) => setFieldValue('watermark', e.target.value)}
         >
           {Object.keys(watermarkDict).map((el) => (
             <MenuItem key={el} value={el}>

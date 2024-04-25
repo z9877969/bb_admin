@@ -112,6 +112,7 @@ const OneProductPage = () => {
       {prodId !== 'new' && (
         <Button
           variant="outlined"
+          color="success"
           sx={{ mb: 2, p: 1 }}
           onClick={() => navigateToNewVariant()}
           disabled={varId === 'new'}
@@ -127,56 +128,3 @@ const OneProductPage = () => {
 };
 
 export default OneProductPage;
-
-/* const p = {
-  // title: 'Дитяча зубна паста ПОЛУНИЦЯ Brush baby STRAWBERRY !!!TEST!!!',
-  // subtitle:
-  //   'Дитяча зубна паста для щоденного використання (від 3 років з високим ризиком розвитку карієсу або з появою 1 постійного зуба).',
-  // recomendation:
-  //   'Склад цієї пасти дуже добре видно на фото її зворотньої сторони.',
-  description: [
-    {
-      paragraph:
-        'Ця зубна паста має унікальне поєднання ксилітолу і…Допомагає відновити рН в роті до здорового рівня.',
-    },
-    {
-      title: 'Основні характеристики:',
-      items: [
-        '10% ксиліту;',
-
-        '1350 ppmF натрію монофторфосфату;',
-
-        'не містить лаурилсульфат натрію (SLS) та парабенів;',
-
-        'не містить також пальмової олії, молочних продуктів та сої;',
-
-        'має низьке піноутворення.',
-      ],
-    },
-  ],
-  // userType: ['child'],
-  // age: ['0to3', '4to6', '6to12'],
-  category: {
-    _id: '66196c344359dc726e3f8824',
-    label: 'Зубна паста',
-    value: 'toothpastes',
-  },
-  maker: {
-    _id: '66196d5e4359dc726e3f8830',
-    label: 'Brush-baby',
-    value: 'brushbaby',
-  },
-  variants: [
-    {
-      color: null,
-      flavor: 'Полуниця',
-      marker: 'pink',
-      price: 230,
-      quantity: 10,
-      salePrice: 0,
-      volume: '50мл',
-      watermark: null,
-      _id: '661ce908673498c3793bb3de',
-    },
-  ],
-}; */

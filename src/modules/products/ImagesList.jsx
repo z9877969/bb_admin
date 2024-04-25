@@ -31,12 +31,13 @@ const ImagesList = ({ images, setImages }) => {
             <TextField
               variant="outlined"
               fullWidth
-              name="subtitle"
               label={`Зображення-${idx + 1}`}
               value={el.url}
               onChange={(e) => {
                 setImages(
-                  images.map((el, i) => (i !== idx ? el : e.target.value))
+                  images.map((el, i) =>
+                    i !== idx ? el : { ...el, url: e.target.value }
+                  )
                 );
               }}
             />
