@@ -27,21 +27,16 @@ function App() {
           <Route
             path="products/:prodId/*"
             element={<PrivateRoute component={<OneProductPage />} />}
-          >
-            <Route
-              path=":varId"
-              element={<PrivateRoute component={<h1>VariantComponent</h1>} />}
-            />
-          </Route>
+          />
           <Route
             path="blogs"
             element={<PrivateRoute component={<BlogsListPage />} />}
-          >
-            <Route
-              path=":blogId"
-              element={<PrivateRoute component={<OneBlogPage />} />}
-            />
-          </Route>
+          />
+          <Route
+            path="blogs/:blogId"
+            element={<PrivateRoute component={<OneBlogPage />} />}
+          />
+
           <Route
             path="about"
             element={<PrivateRoute component={<AboutBrushBuddyPage />} />}

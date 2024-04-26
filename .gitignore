@@ -33,3 +33,6 @@ _productsList/
 .netlify
 
 .env
+
+# own dev`s files
+_trash

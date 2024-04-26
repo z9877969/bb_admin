@@ -9,7 +9,7 @@ import {
   getProductsApi,
   updateProductApi,
   updateVariantApi,
-} from 'services/bbApi';
+} from 'services/productsApi';
 
 export const getProducts = createAsyncThunk(
   'get/products',
