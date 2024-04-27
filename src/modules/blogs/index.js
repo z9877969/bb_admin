@@ -6,3 +6,4 @@ export { default as Paragraph } from './Paragraph';
 export { default as TextList } from './TextList';
 export { default as BlogImage } from './BlogImage';
 export { default as BlogItemByType } from './BlogItemByType';
+export { default as UpDownItemMover } from './UpDownItemMover';

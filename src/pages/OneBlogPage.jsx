@@ -1,7 +1,7 @@
 import { Box, FormGroup } from '@mui/material';
 import { addBlog, deleteBlog, updateBlog } from '@redux/blogs/blogsOperations';
 import { useBlog } from 'hooks';
-import { AddBlogTooltip, BlogItemByType } from 'modules/blogs';
+import { AddBlogTooltip, BlogItemByType, UpDownItemMover } from 'modules/blogs';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -65,19 +65,26 @@ const OneBlogPage = () => {
     <Box sx={{ pb: 3 }} component={'form'} onSubmit={handleSubmit}>
       {blog.length > 0 && (
         <FormGroup sx={{ pr: 2, '& > :not(style)': { mb: 1 } }}>
-          {blog.map(({ block, content, accent, id }) => (
+          {blog.map(({ block, content, accent, id }, idx, arr) => (
             <RemovingItemWrapper
               onClick={() => handleBlogItemRemove(id)}
               key={id}
             >
-              <Box width={'100%'}>
-                <BlogItemByType
-                  accent={accent}
-                  block={block}
-                  content={content}
+              <Box width={'100%'} display={'flex'}>
+                <UpDownItemMover
                   id={id}
+                  canToBottom={idx < arr.length - 1}
+                  canToTop={idx > 0}
                   setBlog={setBlog}
-                />
+                >
+                  <BlogItemByType
+                    accent={accent}
+                    block={block}
+                    content={content}
+                    id={id}
+                    setBlog={setBlog}
+                  />
+                </UpDownItemMover>
               </Box>
             </RemovingItemWrapper>
           ))}
