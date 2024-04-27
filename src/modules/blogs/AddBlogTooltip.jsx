@@ -1,33 +1,47 @@
-import { Box, Button } from '@mui/material';
+import { Box, Chip } from '@mui/material';
+import { createBlogItem } from 'helpers';
+import { useCallback } from 'react';
+import { BLOG_ITEMS } from 'shared/constants';
+import IconPlus from '@mui/icons-material/ControlPointRounded';
 
-const AddBlogTooltip = () => {
+const options = [
+  { title: 'Абзац', itemType: BLOG_ITEMS.PARAGRAPH },
+  { title: 'Заголовок-1', itemType: BLOG_ITEMS.PRIMARY_TITLE },
+  { title: 'Заголовок-2', itemType: BLOG_ITEMS.SECONDARY_TITLE },
+  { title: 'Список', itemType: BLOG_ITEMS.LIST },
+  { title: 'Зображення', itemType: BLOG_ITEMS.IMAGE },
+  { title: 'Автор', itemType: BLOG_ITEMS.ABOUT },
+];
+
+const AddBlogTooltip = ({ setBlog }) => {
+  const addBlogItem = useCallback(
+    (itemType) => {
+      setBlog((p) => [...p, createBlogItem(itemType)]);
+    },
+    [setBlog]
+  );
+
   return (
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         flexWrap: 'wrap',
         gap: 1,
+        mt: 2,
+        mb: 3,
       }}
     >
-      <Button variant="outlined" color="success">
-        Абзац
-      </Button>
-      <Button variant="outlined" color="success">
-        Заголовок-1
-      </Button>
-      <Button variant="outlined" color="success">
-        Заголовок-2
-      </Button>
-      <Button variant="outlined" color="success">
-        Список
-      </Button>
-      <Button variant="outlined" color="success">
-        Зображення
-      </Button>
-      <Button variant="outlined" color="success">
-        Автор
-      </Button>
+      {options.map(({ title, itemType }) => (
+        <Chip
+          key={itemType}
+          label={title}
+          variant="outlined"
+          color="success"
+          icon={<IconPlus />}
+          onClick={() => addBlogItem(itemType)}
+        />
+      ))}
     </Box>
   );
 };

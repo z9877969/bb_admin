@@ -1,5 +1,5 @@
-import { TextField } from '@mui/material';
 import { useCallback } from 'react';
+import { TextField, Box } from '@mui/material';
 
 const PrimaryTitle = ({ id, content, setBlog }) => {
   const handleChange = useCallback(
@@ -11,12 +11,15 @@ const PrimaryTitle = ({ id, content, setBlog }) => {
     [id, setBlog]
   );
   return (
-    <TextField
-      label="Заголовок 1го рівня"
-      size="small"
-      value={content}
-      onChange={handleChange}
-    />
+    <Box display={'flex'} columnGap={1}>
+      <TextField
+        label="Заголовок 1го рівня"
+        size="small"
+        value={content}
+        onChange={handleChange}
+        fullWidth
+      />
+    </Box>
   );
 };
 

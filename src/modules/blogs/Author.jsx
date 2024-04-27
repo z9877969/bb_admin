@@ -1,10 +1,10 @@
 import { List, ListItem, TextField } from '@mui/material';
 import { FieldsGroupWrapper } from 'shared/components';
 
-const About = ({ id, content, setBlog }) => {
+const Author = ({ id, content, setBlog }) => {
   const [author, date] = content;
   const handleChange = (e) => {
-    const { name, content } = e.target;
+    const { name, value } = e.target;
     setBlog((p) =>
       p.map((el) =>
         el.id !== id
@@ -13,16 +13,16 @@ const About = ({ id, content, setBlog }) => {
               ...el,
               content:
                 name === 'author'
-                  ? [content, el.content[1]]
+                  ? [value, el.content[1]]
                   : name === 'date'
-                    ? [el.content[0], content]
+                    ? [el.content[0], value]
                     : el.content,
             }
       )
     );
   };
   return (
-    <FieldsGroupWrapper label={'About'}>
+    <FieldsGroupWrapper label={'Публікація'}>
       <List sx={{ display: 'flex', justifyContent: 'flex-start' }}>
         <ListItem>
           <TextField
@@ -50,4 +50,4 @@ const About = ({ id, content, setBlog }) => {
   );
 };
 
-export default About;
+export default Author;

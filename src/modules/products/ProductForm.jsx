@@ -9,7 +9,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import FormButtons from './FormButtons';
+import FormButtons from '../../shared/components/FormButtons';
 import { useFormik } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 import { selectFilters } from '@redux/products/productsSelectors';

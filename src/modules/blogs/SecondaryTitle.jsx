@@ -16,6 +16,7 @@ const SecondaryTitle = ({ id, content, setBlog }) => {
       size="small"
       value={content}
       onChange={handleChange}
+      fullWidth
     />
   );
 };

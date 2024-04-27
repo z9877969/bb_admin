@@ -1,97 +1,97 @@
 import { Box, FormGroup } from '@mui/material';
+import { addBlog, deleteBlog, updateBlog } from '@redux/blogs/blogsOperations';
 import { useBlog } from 'hooks';
-import {
-  About,
-  AddBlogTooltip,
-  BlogImage,
-  Paragraph,
-  PrimaryTitle,
-  SecondaryTitle,
-  TextList,
-} from 'modules/blogs';
+import { AddBlogTooltip, BlogItemByType } from 'modules/blogs';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FormButtons, RemovingItemWrapper } from 'shared/components';
 
 const OneBlogPage = () => {
-  const [blog, setBlog] = useBlog();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { blogId } = useParams();
+  const { blog, setBlog, storedBlog } = useBlog();
+  const [canSave, setCanSave] = useState(false);
+
+  const handleBlogItemRemove = useCallback(
+    (id) => {
+      setBlog((p) => p.filter((el) => el.id !== id));
+    },
+    [setBlog]
+  );
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      blogId !== 'new'
+        ? await dispatch(updateBlog({ blog, blogId }))
+        : await dispatch(addBlog(blog)).then(({ payload }) => {
+            navigate(`/blogs/${payload._id}`);
+          });
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error.message);
+    } finally {
+      setCanSave(false);
+    }
+  };
+
+  const handleCancelSave = useCallback(() => {
+    blogId === 'new' ? navigate('/blogs') : setBlog(storedBlog);
+    setCanSave(false);
+  }, [setBlog, storedBlog, navigate, blogId]);
+
+  const handleDeleteProduct = () => {
+    dispatch(deleteBlog(blogId)).then(() => {
+      navigate('/blogs');
+    });
+  };
+
+  useEffect(() => {
+    if (!canSave && blogId === 'new' && blog?.length > 0) {
+      setCanSave(true);
+    }
+    if (!canSave && blog?.length && storedBlog?.length) {
+      if (JSON.stringify(blog) !== JSON.stringify(storedBlog)) {
+        setCanSave(true);
+      }
+    }
+  }, [blog, storedBlog, canSave, blogId]);
 
   if (!blog) return null;
 
   return (
-    <Box sx={{ pb: 3 }}>
+    <Box sx={{ pb: 3 }} component={'form'} onSubmit={handleSubmit}>
       {blog.length > 0 && (
         <FormGroup sx={{ pr: 2, '& > :not(style)': { mb: 1 } }}>
-          {blog.map(({ block, content, accent, id }) => {
-            switch (block) {
-              case 'primaryTitle':
-                return (
-                  <PrimaryTitle id={id} content={content} setBlog={setBlog} />
-                );
-              case 'about':
-                return <About id={id} content={content} setBlog={setBlog} />;
-              case 'paragraph':
-                return (
-                  <Paragraph
-                    id={id}
-                    content={content}
-                    accent={accent}
-                    setBlog={setBlog}
-                  />
-                );
-              case 'list':
-                return <TextList id={id} content={content} setBlog={setBlog} />;
-              case 'secondaryTitle':
-                return (
-                  <SecondaryTitle id={id} content={content} setBlog={setBlog} />
-                );
-              case 'image':
-                return (
-                  <BlogImage id={id} content={content} setBlog={setBlog} />
-                );
-              default:
-                return null;
-            }
-          })}
+          {blog.map(({ block, content, accent, id }) => (
+            <RemovingItemWrapper
+              onClick={() => handleBlogItemRemove(id)}
+              key={id}
+            >
+              <Box width={'100%'}>
+                <BlogItemByType
+                  accent={accent}
+                  block={block}
+                  content={content}
+                  id={id}
+                  setBlog={setBlog}
+                />
+              </Box>
+            </RemovingItemWrapper>
+          ))}
         </FormGroup>
       )}
-      <AddBlogTooltip />
+      <AddBlogTooltip setBlog={setBlog} />
+      <FormButtons
+        disabledCancel={blogId !== 'new' && !canSave}
+        disabledSave={!canSave}
+        onCancel={handleCancelSave}
+        onDelete={blogId !== 'new' && handleDeleteProduct}
+      />
     </Box>
   );
 };
 
 export default OneBlogPage;
-
-// const blocks = {
-//   // primaryTitle: {
-//   //   block: 'primaryTitle',
-//   //   content: 'Яку вибрати зубну щітку?',
-//   // },
-//   // about: {
-//   //   block: 'about',
-//   //   content: ['Лікар: Поліна Притуляк', '12.10.2024'],
-//   // },
-//   // paragraph: {
-//   //   block: 'paragraph',
-//   //   content:
-//   //     'У більшості випадків, пацієнти не звертають уваги на розмір головки щітки, кількість і товщину щетинок на ній — купують або красиві, або бюджетні, які не шкода міняти через два-три місяці. Зазвичай щітки поділяють на мануальні і електричні (ультразвукові / с обертовою голівкою). Крім цих типів, бувають щітки для пацієнтів з брекетами і інтердентальні.',
-//   //   accent: ['Мануальні щітки,'],
-//   // },
-//   // list: {
-//   //   block: 'list',
-//   //   content: [
-//   //     'дуже м’які;',
-//   //     'м’які;',
-//   //     'середньої жорсткості;',
-//   //     'дуже жорсткі;',
-//   //     'комбіновані (використовуються щетинки з різних матеріалів);',
-//   //     'загальні (використовуються щетинки різної твердості).',
-//   //   ],
-//   // },
-//   // image: {
-//   //   block: 'image',
-//   //   content:
-//   //     'https://res.cloudinary.com/dmfu2r8kg/image/upload/v1712044423/blogs/blog_1.1-min_mjeyzi.png',
-//   // },
-//   // secondaryTitle: {
-//   //   block: 'secondaryTitle',
-//   //   content: 'Які щетинки повинні бути на щітці: натуральні або синтетичні?',
-//   // },
-// };

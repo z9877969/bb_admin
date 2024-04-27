@@ -11,7 +11,7 @@ const TextList = ({ id, content, setBlog }) => {
             ? el
             : {
                 ...el,
-                accent: value.split('\n'),
+                content: value.split('\n'),
               }
         )
       );

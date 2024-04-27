@@ -12,10 +12,11 @@ const BlogImage = ({ id, content, setBlog }) => {
   );
   return (
     <TextField
-      label="Заголовок 2го рівня"
+      label="Зображення"
       size="small"
       value={content}
       onChange={handleChange}
+      fullWidth
     />
   );
 };

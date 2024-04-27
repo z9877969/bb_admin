@@ -1,13 +1,25 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { FormGroup, List, ListItem, Typography } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  FormGroup,
+  List,
+  ListItem,
+  Typography,
+} from '@mui/material';
 import { getBlogsList } from '@redux/blogs/blogsOperations';
 import { selectBlogsList } from '@redux/blogs/blogsSelectors';
 
 const BlogsListPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const blogsList = useSelector(selectBlogsList);
+
+  const handleAddBlog = () => {
+    navigate('/blogs/new');
+  };
 
   useEffect(() => {
     dispatch(getBlogsList());
@@ -15,9 +27,14 @@ const BlogsListPage = () => {
 
   return (
     <>
-      <Typography variant="h4" component={'h1'}>
-        Список блогів
-      </Typography>
+      <Box display={'flex'} columnGap={2}>
+        <Typography variant="h4" component={'h1'}>
+          Список блогів
+        </Typography>
+        <Button variant="outlined" color="success" onClick={handleAddBlog}>
+          Створити блог
+        </Button>
+      </Box>
       <List sx={{ '& > :not(style)': { m: 1, pr: 2 } }}>
         {blogsList.map((el) => (
           <ListItem key={el._id} sx={{ p: '0' }}>
@@ -37,7 +54,6 @@ const BlogsListPage = () => {
                   {el.items[0].content}
                 </Typography>
               </FormGroup>
-              {/* <ReadOnlyTextFiald /> */}
             </Link>
           </ListItem>
         ))}

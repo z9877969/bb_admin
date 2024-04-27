@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
-import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
-import IconMinus from '@mui/icons-material/RemoveCircleOutline';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import Textarea from './Textarea';
 import { nanoid } from 'nanoid';
+import { RemovingItemWrapper } from 'shared/components';
 
 const prgrf = {
   paragraph: '',
@@ -10,21 +10,6 @@ const prgrf = {
 const list = {
   title: '',
   items: [],
-};
-
-const DescrItemWrapper = ({ onClick, children }) => {
-  return (
-    <Box sx={{ display: 'flex', columnGap: 2, alignItems: 'center' }}>
-      {children}
-      <IconButton
-        aria-label="delete"
-        // onClick={() => }
-        onClick={onClick}
-      >
-        <IconMinus />
-      </IconButton>
-    </Box>
-  );
 };
 
 const Description = ({ description, setDescription }) => {
@@ -47,10 +32,6 @@ const Description = ({ description, setDescription }) => {
   const deleteItem = (id) => {
     setDescr((p) => setDescrWrapper(p.filter((el) => el.id !== id)));
   };
-
-  // useEffect(() => {
-  //   description.length > 0 && setDescr(description);
-  // }, [description]);
 
   return (
     <Box
@@ -83,7 +64,7 @@ const Description = ({ description, setDescription }) => {
         {descr.map(({ paragraph, title, items, id }) => {
           if (paragraph !== undefined) {
             return (
-              <DescrItemWrapper key={id} onClick={() => deleteItem(id)}>
+              <RemovingItemWrapper key={id} onClick={() => deleteItem(id)}>
                 <Textarea
                   placeholder="Текст абзацу"
                   minLength={80}
@@ -101,11 +82,11 @@ const Description = ({ description, setDescription }) => {
                     )
                   }
                 />
-              </DescrItemWrapper>
+              </RemovingItemWrapper>
             );
           }
           return (
-            <DescrItemWrapper key={id} onClick={() => deleteItem(id)}>
+            <RemovingItemWrapper key={id} onClick={() => deleteItem(id)}>
               <Box sx={{ flexGrow: 1 }}>
                 <TextField
                   label="Заголовок списку"
@@ -139,7 +120,7 @@ const Description = ({ description, setDescription }) => {
                   }}
                 />
               </Box>
-            </DescrItemWrapper>
+            </RemovingItemWrapper>
           );
         })}
       </Box>

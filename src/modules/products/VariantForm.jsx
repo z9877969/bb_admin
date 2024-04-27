@@ -11,7 +11,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import FormButtons from './FormButtons';
+import FormButtons from '../../shared/components/FormButtons';
 import {
   createVariant,
   updateVariant,
