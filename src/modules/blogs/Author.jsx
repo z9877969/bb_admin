@@ -2,7 +2,7 @@ import { List, ListItem, TextField } from '@mui/material';
 import { FieldsGroupWrapper } from 'shared/components';
 
 const Author = ({ id, content, setBlog }) => {
-  const [author, date] = content;
+  const { author, date } = content;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBlog((p) =>
@@ -13,9 +13,9 @@ const Author = ({ id, content, setBlog }) => {
               ...el,
               content:
                 name === 'author'
-                  ? [value, el.content[1]]
+                  ? { ...el.content, author: value }
                   : name === 'date'
-                    ? [el.content[0], value]
+                    ? { ...el.content, date: value }
                     : el.content,
             }
       )
