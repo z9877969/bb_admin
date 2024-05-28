@@ -1,55 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useMatch, useNavigate, useParams } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 import { selectProdList } from '@redux/products/productsSelectors';
 import VariantsList from 'modules/products/VariantsList';
 import ProductForm from 'modules/products/ProductForm';
 import { getProducts } from '@redux/products/productsOperations';
-// import StarterKit from '@tiptap/starter-kit';
-// import {
-//   MenuButtonBold,
-//   MenuButtonItalic,
-//   MenuControlsContainer,
-//   MenuDivider,
-//   MenuBar,
-//   MenuSelectHeading,
-//   RichTextEditor,
-//   ColorPicker,
-// } from 'mui-tiptap';
-// import { useRef } from 'react';
-
-// function RichInput() {
-//   const rteRef = useRef(null);
-
-//   const [color, setColor] = useState(0);
-
-//   return (
-//     <div>
-//       <ColorPicker onChange={(v) => setColor(v)} value={color} />
-//       <RichTextEditor
-//         ref={rteRef}
-//         extensions={[StarterKit]} // Or any Tiptap extensions you wish!
-//         content="<p>Hello world</p>" // Initial content for the editor
-//         // Optionally include `renderControls` for a menu-bar atop the editor:
-//         renderControls={() => (
-//           <MenuControlsContainer>
-//             <MenuSelectHeading />
-//             <MenuDivider />
-//             <MenuButtonBold />
-//             <MenuButtonItalic />
-//             <MenuBar />
-//             {/* Add more controls of your choosing here */}
-//           </MenuControlsContainer>
-//         )}
-//       />
-
-//       <Button onClick={() => console.log(rteRef.current?.editor?.getHTML())}>
-//         Log HTML
-//       </Button>
-//     </div>
-//   );
-// }
 
 const newProduct = {
   age: [],
@@ -66,7 +22,10 @@ const newProduct = {
 const OneProductPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { prodId, varId } = useParams();
+  const { prodId } = useParams();
+  const {
+    params: { '*': varId },
+  } = useMatch('products/:prodId/*');
 
   const products = useSelector(selectProdList);
 
@@ -121,7 +80,7 @@ const OneProductPage = () => {
         </Button>
       )}
       {(variants?.length > 0 || varId === 'new') && (
-        <VariantsList variants={variants} />
+        <VariantsList variants={variants} varId={varId} />
       )}
     </Box>
   );

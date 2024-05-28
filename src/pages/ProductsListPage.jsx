@@ -4,6 +4,7 @@ import { Box, Button, List, ListItem } from '@mui/material';
 import { getProducts } from '@redux/products/productsOperations';
 import { selectProdList } from '@redux/products/productsSelectors';
 import { Link, useNavigate } from 'react-router-dom';
+import { CheckBox } from '@mui/icons-material';
 
 const ProductsListPage = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,24 @@ const ProductsListPage = () => {
       <List>
         {prodList.map((el) => (
           <ListItem key={el._id}>
-            <Link to={'/products/' + el._id} style={{ color: 'inherit' }}>
+            <CheckBox
+              sx={{
+                mr: 2,
+                color: 'blue',
+                '&.Mui-checked': {
+                  color: 'red',
+                },
+              }}
+            />
+            <Link
+              to={'/products/' + el._id}
+              style={{ color: 'inherit' }}
+              onClick={(e) => {
+                if (e.target !== e.currentTarget) {
+                  e.stopPropagation();
+                }
+              }}
+            >
               {el.title}
             </Link>
           </ListItem>

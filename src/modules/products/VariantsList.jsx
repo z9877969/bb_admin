@@ -1,16 +1,15 @@
-import { FormControl, Tab, Tabs, Typography } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
-import VariantForm from './VariantForm';
+import { useDispatch } from 'react-redux';
 import {
   Navigate,
   Route,
   Routes,
   useMatch,
   useNavigate,
-  useParams,
 } from 'react-router-dom';
+import { FormControl, Tab, Tabs, Typography } from '@mui/material';
+import VariantForm from './VariantForm';
 import { deleteVariant } from '@redux/products/productsOperations';
-import { useDispatch } from 'react-redux';
 
 const initialVariant = {
   color: '',
@@ -23,14 +22,12 @@ const initialVariant = {
   watermark: '',
 };
 
-const VariantsList = ({ variants }) => {
+const VariantsList = ({ variants, varId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [variant, setVariant] = useState(variants[0] ?? {});
   const [varList, setVarList] = useState(variants);
   const { pathnameBase } = useMatch('/products/:prodId/*');
-
-  const { varId } = useParams();
 
   const handleChangeVariant = (_, varId) => {
     navigate(`${pathnameBase}/${varId}`);
@@ -117,7 +114,7 @@ const VariantsList = ({ variants }) => {
       </Tabs>
       <Routes>
         <Route
-          path=":varId"
+          path={':varId'}
           element={
             <VariantForm
               variant={variant}
