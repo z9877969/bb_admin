@@ -20,7 +20,6 @@ import {
   updateProduct,
 } from '@redux/products/productsOperations';
 import { useNavigate, useParams } from 'react-router-dom';
-import ImagesList from './ImagesList';
 import Description from './Description';
 
 const userTypeDict = {
@@ -203,10 +202,6 @@ const ProductForm = ({ product }) => {
           ))}
         </Select>
       </FormControl>
-      <ImagesList
-        images={values.images}
-        setImages={(images) => setFieldValue('images', images)}
-      />
       <Description description={values.description} setDescription={setDescr} />
 
       <FormButtons

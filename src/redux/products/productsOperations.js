@@ -9,6 +9,7 @@ import {
   getProductsApi,
   updateProductApi,
   updateVariantApi,
+  updateVariantPopularityApi,
 } from 'services/productsApi';
 
 export const getProducts = createAsyncThunk(
@@ -113,6 +114,19 @@ export const deleteVariant = createAsyncThunk(
       const variant = await deleteVariantApi(varId);
 
       return variant;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateVariantPopularity = createAsyncThunk(
+  'update/variant-popularity',
+  async ({ isPopular, varId }, { rejectWithValue }) => {
+    try {
+      const newVariant = await updateVariantPopularityApi({ isPopular, varId });
+
+      return newVariant;
     } catch (error) {
       return rejectWithValue(error.message);
     }

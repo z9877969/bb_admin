@@ -16,7 +16,6 @@ const newProduct = {
   subtitle: '',
   title: '',
   userType: [],
-  images: [],
 };
 
 const OneProductPage = () => {

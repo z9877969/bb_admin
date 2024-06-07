@@ -8,13 +8,13 @@ import {
   getProducts,
   updateProduct,
   updateVariant,
+  updateVariantPopularity,
 } from './productsOperations';
 
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
-    // variants: [],
     filters: {
       categories: [],
       makers: [],
@@ -72,6 +72,14 @@ const productsSlice = createSlice({
         const { _id: varId, product: prodId } = payload;
         const product = state.products.find((el) => el._id === prodId);
         product.variants = product.variants.filter(({ _id }) => _id !== varId);
+      })
+      .addCase(updateVariantPopularity.fulfilled, (state, { payload }) => {
+        const { _id: varId, isPopular, product: prodId } = payload;
+        const product = state.products.find((el) => el._id === prodId);
+        const productVarIdx = product.variants.findIndex(
+          (el) => el._id === varId
+        );
+        product.variants[productVarIdx].isPopular = isPopular;
       }),
 });
 

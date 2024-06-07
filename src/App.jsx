@@ -6,7 +6,7 @@ import {
   MainPage,
   OneBlogPage,
   OneProductPage,
-  ProductsListPage, // MainPage,
+  ProductsTablePage, // MainPage,
 } from './pages';
 import { SharedLayout } from 'shared/components';
 import { Toastify } from 'shared/components';
@@ -22,7 +22,7 @@ function App() {
           <Route index element={<PrivateRoute component={<MainPage />} />} />
           <Route
             path="products"
-            element={<PrivateRoute component={<ProductsListPage />} />}
+            element={<PrivateRoute component={<ProductsTablePage />} />}
           />
           <Route
             path="products/:prodId/*"

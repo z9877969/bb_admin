@@ -20,6 +20,7 @@ const initialVariant = {
   salePrice: 0,
   volume: '',
   watermark: '',
+  images: [],
 };
 
 const VariantsList = ({ variants, varId }) => {

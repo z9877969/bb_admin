@@ -51,3 +51,9 @@ export const deleteVariantApi = async (varId) => {
 
   return data;
 };
+
+export const updateVariantPopularityApi = async ({ isPopular, varId }) => {
+  const { data } = await instance.patch('/variants/' + varId, { isPopular });
+
+  return data;
+};

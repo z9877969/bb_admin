@@ -16,6 +16,7 @@ import {
   createVariant,
   updateVariant,
 } from '@redux/products/productsOperations';
+import ImagesList from './ImagesList';
 
 const watermarkDict = {
   sale: 'Знижка',
@@ -148,6 +149,10 @@ const VariantForm = ({ variant, deleteCurVariant, deleteNewVariant }) => {
         name="salePrice"
         value={Number(values.salePrice)}
         onChange={handleChange}
+      />
+      <ImagesList
+        images={values.images ?? []}
+        setImages={(images) => setFieldValue('images', images)}
       />
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" sx={{ minWidth: '50px' }}>
