@@ -24,7 +24,7 @@ const watermarkDict = {
 };
 
 const watermarkOptions = [
-  { value: '', label: 'Відсутній' },
+  { value: '', label: 'Без watermark' },
   ...Object.entries(watermarkDict).map(([value, label]) => ({
     value,
     label,
