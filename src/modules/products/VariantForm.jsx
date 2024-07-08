@@ -23,6 +23,14 @@ const watermarkDict = {
   wow: 'Новинка',
 };
 
+const watermarkOptions = [
+  { value: '', label: 'Відсутній' },
+  ...Object.entries(watermarkDict).map(([value, label]) => ({
+    value,
+    label,
+  })),
+];
+
 const VariantForm = ({ variant, deleteCurVariant, deleteNewVariant }) => {
   const dispatch = useDispatch();
   const { varId, prodId } = useParams();
@@ -161,13 +169,13 @@ const VariantForm = ({ variant, deleteCurVariant, deleteNewVariant }) => {
         <Select
           labelId="watermark"
           id="watermark"
-          value={values.watermark ?? ''}
+          value={values.watermark}
           label="Watermark"
           onChange={(e) => setFieldValue('watermark', e.target.value)}
         >
-          {Object.keys(watermarkDict).map((el) => (
-            <MenuItem key={el} value={el}>
-              {watermarkDict[el]}
+          {watermarkOptions.map(({ value, label }) => (
+            <MenuItem key={value} value={value}>
+              {label}
             </MenuItem>
           ))}
         </Select>
