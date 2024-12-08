@@ -4,11 +4,16 @@ import {
   TableHead,
   TableRow,
   TableBody,
+  Switch,
+  Box,
+  Typography,
 } from '@mui/material';
 import ProductTableRow from './ProductTableRow';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateVariantPopularity } from '@redux/products/productsOperations';
+import { useLocalStorage } from 'hooks/useLocalStorage';
+import { Link } from 'react-router-dom';
 
 const updateTitle = ({ title, flavor, color, volume }) => {
   let newTitle = title;
@@ -26,6 +31,8 @@ const updateTitle = ({ title, flavor, color, volume }) => {
 
 const ProductsTable = ({ prodList }) => {
   const dispatch = useDispatch();
+
+  const [isVars, setIsVars] = useLocalStorage('isVarsList', false);
 
   const displayingProducts = useMemo(() => {
     return prodList.reduce((acc, { variants, title, _id }) => {
@@ -53,26 +60,65 @@ const ProductsTable = ({ prodList }) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell width={170}>Популярні товари</TableCell>
-            <TableCell align="left">Назва товару</TableCell>
-            <TableCell align="left">Ціна</TableCell>
-            <TableCell align="left">Знижка</TableCell>
-            <TableCell align="left">К-сть</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {displayingProducts.map((props) => (
-            <ProductTableRow
-              key={props.varId}
-              {...props}
-              updateIsPopular={updateIsPopular}
-            />
-          ))}
-        </TableBody>
-      </Table>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          columnGap: '1em',
+        }}
+      >
+        <Typography variant="h6" fontWeight={!isVars ? 600 : 400}>
+          ProductsList
+        </Typography>
+        <Switch checked={isVars} onChange={() => setIsVars((p) => !p)} />
+        <Typography variant="h6" fontWeight={isVars ? 600 : 400}>
+          VariantsList
+        </Typography>
+      </Box>
+      {isVars ? (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell width={170}>Популярні товари</TableCell>
+              <TableCell align="left">Назва товару</TableCell>
+              <TableCell align="left">Ціна</TableCell>
+              <TableCell align="left">Знижка</TableCell>
+              <TableCell align="left">К-сть</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {displayingProducts.map((props) => (
+              <ProductTableRow
+                key={props.varId}
+                {...props}
+                updateIsPopular={updateIsPopular}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Назва товару</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {prodList.map((props) => (
+              <TableRow key={props._id}>
+                <TableCell>
+                  <Link
+                    to={`/products/${props._id}`}
+                    style={{ color: 'inherit' }}
+                  >
+                    {props.title}
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };
