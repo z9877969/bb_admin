@@ -37,13 +37,14 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    const getContent = getContentApi().then((content) => {
-      setContent(content);
-      contentRef.current = localStorage.setItem(
-        'content',
-        JSON.stringify(content)
-      );
-    });
+    const getContent = () =>
+      getContentApi().then((content) => {
+        setContent(content);
+        contentRef.current = localStorage.setItem(
+          'content',
+          JSON.stringify(content)
+        );
+      });
 
     loadingWrapper(getContent);
   }, [loadingWrapper]);
