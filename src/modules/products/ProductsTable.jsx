@@ -69,13 +69,17 @@ const ProductsTable = ({ prodList }) => {
           columnGap: '1em',
         }}
       >
-        <Typography variant="h6" fontWeight={!isVars ? 600 : 400}>
-          ProductsList
-        </Typography>
-        <Switch checked={isVars} onChange={() => setIsVars((p) => !p)} />
-        <Typography variant="h6" fontWeight={isVars ? 600 : 400}>
-          VariantsList
-        </Typography>
+        <label htmlFor="1">
+          <Typography variant="h6" fontWeight={!isVars ? 600 : 400}>
+            ProductsList
+          </Typography>
+        </label>
+        <Switch id="1" checked={isVars} onChange={() => setIsVars((p) => !p)} />
+        <label htmlFor="1">
+          <Typography variant="h6" fontWeight={isVars ? 600 : 400}>
+            VariantsList
+          </Typography>
+        </label>
       </Box>
       {isVars ? (
         <Table>
