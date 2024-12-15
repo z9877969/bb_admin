@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLoading } from '@redux/loading/loadingSelectors';
 import s from './Loader.module.scss';
 
+const loaderRoot = document.querySelector('#loader-root');
+
 const Loader = () => {
-  const [isShow, setIsShow] = useState(false);
+  const isLoading = useSelector(selectIsLoading);
 
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setIsShow(true);
-    }, 500);
-    return () => clearInterval(id);
-  }, []);
-
-  return <div className={s.wrapper}>{isShow && <h1>Завантажуємо...</h1>}</div>;
+  return isLoading
+    ? createPortal(
+        <div className={s.wrapper}>{<h1>Завантажуємо...</h1>}</div>,
+        loaderRoot
+      )
+    : null;
 };
 
 export default Loader;

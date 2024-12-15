@@ -7,16 +7,16 @@ import {
   OneBlogPage,
   OneProductPage,
   ProductsTablePage, // MainPage,
+  LoginPage,
 } from './pages';
-import { SharedLayout } from 'shared/components';
-import { Toastify } from 'shared/components';
+import { Loader, SharedLayout, Toastify } from 'shared/components';
 import { PrivateRoute, PublicRoute } from 'containers';
-import LoginPage from 'pages/LoginPage';
 
 function App() {
   return (
     <>
       <Toastify />
+      <Loader />
       <Routes>
         <Route path={ROUTES.HOME} element={<SharedLayout />}>
           <Route index element={<PrivateRoute component={<MainPage />} />} />

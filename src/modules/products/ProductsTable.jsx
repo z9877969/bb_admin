@@ -29,6 +29,8 @@ const updateTitle = ({ title, flavor, color, volume }) => {
   return newTitle;
 };
 
+const tableHeadStyles = { fontWeight: 'bold', fontSize: '1.2em' };
+
 const ProductsTable = ({ prodList }) => {
   const dispatch = useDispatch();
 
@@ -79,11 +81,21 @@ const ProductsTable = ({ prodList }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell width={170}>Популярні товари</TableCell>
-              <TableCell align="left">Назва товару</TableCell>
-              <TableCell align="left">Ціна</TableCell>
-              <TableCell align="left">Знижка</TableCell>
-              <TableCell align="left">К-сть</TableCell>
+              <TableCell sx={{ ...tableHeadStyles }} width={170}>
+                Популярні товари
+              </TableCell>
+              <TableCell sx={{ ...tableHeadStyles }} align="left">
+                Назва товару
+              </TableCell>
+              <TableCell sx={{ ...tableHeadStyles }} align="left">
+                Ціна
+              </TableCell>
+              <TableCell sx={{ ...tableHeadStyles }} align="left">
+                Знижка
+              </TableCell>
+              <TableCell sx={{ ...tableHeadStyles }} align="left">
+                К-сть
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,7 +112,10 @@ const ProductsTable = ({ prodList }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Назва товару</TableCell>
+              <TableCell sx={{ ...tableHeadStyles }} align="left">
+                Назва товару
+              </TableCell>
+              <TableCell sx={{ ...tableHeadStyles }}>Категорія</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -112,6 +127,14 @@ const ProductsTable = ({ prodList }) => {
                     style={{ color: 'inherit' }}
                   >
                     {props.title}
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Link
+                    to={`/products/${props._id}`}
+                    style={{ color: 'inherit' }}
+                  >
+                    {props.category.label}
                   </Link>
                 </TableCell>
               </TableRow>
