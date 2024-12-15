@@ -1,3 +1,7 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Box,
   Checkbox,
@@ -10,16 +14,12 @@ import {
   TextField,
 } from '@mui/material';
 import FormButtons from '../../shared/components/FormButtons';
-import { useFormik } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
 import { selectFilters } from '@redux/products/productsSelectors';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   addProduct,
   deleteProduct,
   updateProduct,
 } from '@redux/products/productsOperations';
-import { useNavigate, useParams } from 'react-router-dom';
 import Description from './Description';
 
 const userTypeDict = {
@@ -112,24 +112,6 @@ const ProductForm = ({ product }) => {
         fullWidth
         name="title"
         value={values.title}
-        onChange={handleChange}
-      />
-      <TextField
-        id="subtitle"
-        label="Subtitle"
-        variant="outlined"
-        fullWidth
-        name="subtitle"
-        value={values.subtitle}
-        onChange={handleChange}
-      />
-      <TextField
-        id="recomendation"
-        label="Recomendation"
-        variant="outlined"
-        fullWidth
-        name="recomendation"
-        value={values.recomendation}
         onChange={handleChange}
       />
       <Box>

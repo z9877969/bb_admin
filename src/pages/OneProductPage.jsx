@@ -12,8 +12,6 @@ const newProduct = {
   category: '',
   description: [],
   maker: '',
-  recomendation: '',
-  subtitle: '',
   title: '',
   userType: [],
 };
